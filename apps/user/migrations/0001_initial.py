@@ -13,7 +13,6 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0012_alter_user_first_name_max_length'),
-        ('company', '0001_initial'),
     ]
 
     operations = [
@@ -34,7 +33,6 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(blank=True, max_length=50, null=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_default_password', models.BooleanField(default=True)),
-                ('company', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user', to='company.company')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
             ],

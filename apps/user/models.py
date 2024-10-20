@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from apps.company.models import Company
 from django.contrib.auth.hashers import make_password
 
 
@@ -19,7 +18,6 @@ class User(AbstractUser):
     role = models.CharField(max_length=50, null=True)
     picture = models.TextField(blank= True, null=True)
     password = models.CharField(max_length=128, blank=True, null=True)
-    company = models.ForeignKey(Company,on_delete=models.CASCADE,related_name='user', null=True)
     is_active = models.BooleanField(default=True)
     is_default_password = models.BooleanField(default=True) 
 

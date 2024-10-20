@@ -34,18 +34,14 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'apps.employee',
+#    'apps.employee',
     'apps.user',
-    'apps.company',
+ #   'apps.company',
 ]
 
 # Se definen las aplicaciones del proyecto
 PROJECT_APPS = [
-    # 'apps.payrolls',
-    # 'apps.company',
-    'apps.payrolls',
-    # 'apps.employee',
-    # 'apps.user',
+    'apps.proyecto',
 ]
 
 # Se definen las aplicaciones de terceros
@@ -120,24 +116,24 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
     "https://payroll-front.onrender.com",
 ]
 
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:5173',
-#     'http://localhost:3000',
+#     'http://localhost:5173',
 #     'http://localhost:8000',
 #     'http://127.0.0.1:8000',
-#     'http://127.0.0.1:3000',
+#     'http://127.0.0.1:5173',
 # ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
+    'http://localhost:5173',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173',
 ]
 
 PASSWORD_HASHERS = [
@@ -149,17 +145,17 @@ PASSWORD_HASHERS = [
 
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'http://localhost:5173',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
+    'http://localhost:5173',
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5173',
 ]
 
 PASSWORD_HASHERS = [
