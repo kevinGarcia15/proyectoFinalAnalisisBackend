@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 class Prioridad(models.Model):
     idPrioridad = models.AutoField(primary_key=True)
@@ -32,15 +33,15 @@ class EstadoProyecto(models.Model):
 class Proyecto(models.Model):
     idProyecto = models.AutoField(primary_key=True)
     fechaRequerimiento = models.DateField()
-    usuarioEncargado = models.CharField(max_length=20)
     nombreProyecto = models.CharField(max_length=60)
     descripcion = models.TextField()
     fechaEstimadoInicio = models.DateField()
     planificado = models.BooleanField()
     fechaRegistro = models.DateTimeField(auto_now_add=True)
-    usuarioRegistro = models.CharField(max_length=20)
     
     # Relaciones con otras tablas
+    idUsuariEncargado = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='proyecto_encargado')
+    idUsuarioRegistro = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='proyecto_registro')
     idPrioridad = models.ForeignKey(Prioridad, on_delete=models.CASCADE)
     idComplejidad = models.ForeignKey(Complejidad, on_delete=models.CASCADE)
     idTipoRequerimiento = models.ForeignKey(TipoRequerimiento, on_delete=models.CASCADE)

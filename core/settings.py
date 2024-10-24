@@ -213,10 +213,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 12,    
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  # Autenticación basada en tokens
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',  # Todos los endpoints requieren autenticación por defecto
-    ],
+    ]
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
