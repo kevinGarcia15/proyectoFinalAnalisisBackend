@@ -52,10 +52,10 @@ class Proyecto(models.Model):
 
 class LogEstadoProyecto(models.Model):
     idLogEstadoProyecto = models.AutoField(primary_key=True)
-    usuarioRegistro = models.CharField(max_length=20)
     fechaRegistro = models.DateField()
     
     # Relaciones con otras tablas
+    idUsuarioRegistro = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='logProyecto_registro')
     idProyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
     idEstadoProyecto = models.ForeignKey(EstadoProyecto, on_delete=models.CASCADE)
 
