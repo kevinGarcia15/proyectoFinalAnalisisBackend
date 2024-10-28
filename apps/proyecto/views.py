@@ -47,20 +47,6 @@ class ProyectoViewSet(viewsets.ModelViewSet):
         # Si pasa las validaciones, procede con la eliminación
         self.perform_destroy(proyecto)
         return Response({"message": "Proyecto eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)
-    
-"""    def delete(self, request, id):
-        print(id)
-        try:
-            proyecto = Proyecto.objects.get(id=id)
-        except Proyecto.DoesNotExist:
-            return Response({"message": "Proyecto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = ProyectoSerializer(proyecto, data=99, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"message": "Proyecto eliminado correctamente"}, status=status.HTTP_204_NO_CONTENT)    
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-"""
 
 class PrioridadViewSet(viewsets.ModelViewSet):
     serializer_class = PrioridadSerializer
