@@ -54,7 +54,7 @@ UPDATE `db_controlProyecto`.`proyecto_estadoproyecto` SET `idEstadoProyecto` = '
 INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('1', 'Planificado');
 INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('2', 'En progreso');
 INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('3', 'Finalizado');
-INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('99', 'Eliminado');
+
 
 ####################################################################
 #				TRIGGERS			   #
