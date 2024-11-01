@@ -55,6 +55,10 @@ INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoR
 INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('2', 'En progreso');
 INSERT INTO `db_controlProyecto`.`requerimiento_estadorequerimiento` (`idEstadoRequerimiento`, `estadoRequerimiento`) VALUES ('3', 'Finalizado');
 
+INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estadoPrueba`) VALUES ('1', 'Pendiente');
+INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estadoPrueba`) VALUES ('2', 'Cumplido');
+INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estadoPrueba`) VALUES ('3', 'Finalizado');
+
 
 ####################################################################
 #				TRIGGERS			   #
@@ -70,4 +74,17 @@ BEGIN
     END IF;
 END$$
 
+
+DROP TRIGGER IF EXISTS `db_controlProyecto`.`prueba_prueba_AFTER_UPDATE`;
+
+DELIMITER $$
+USE `db_controlProyecto`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `db_controlProyecto`.`prueba_prueba_AFTER_UPDATE` AFTER UPDATE ON `prueba_prueba` FOR EACH ROW
+BEGIN
+	IF NEW.idEstadoPrueba_id <> OLD.idEstadoPrueba_id THEN
+		INSERT INTO prueba_logestadoprueba(idEstadoPrueba_id, idPrueba_id, idUsuarioRegistro_id)
+        VALUES(OLD.idEstadoPrueba_id, OLD.idPrueba, OLD.idUsuarioRegistro_id);
+    END IF;
+END$$
+DELIMITER ;
 
