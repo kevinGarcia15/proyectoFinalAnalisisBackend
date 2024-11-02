@@ -26,7 +26,7 @@ class CriterioAceptacion(models.Model):
     idCriterioAceptacion = models.AutoField(primary_key=True)
     descripcion = models.CharField(max_length=200)
     aceptado = models.BooleanField()
-    fechaRegistro = models.DateTimeField()
+    fechaRegistro = models.DateTimeField(auto_now_add=True)
     idPrueba = models.ForeignKey(Prueba, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -34,7 +34,7 @@ class CriterioAceptacion(models.Model):
 
 class LogEstadoPrueba(models.Model):
     idLogEstadoPrueba = models.AutoField(primary_key=True)
-    fechaRegistro = models.DateTimeField()
+    fechaRegistro = models.DateTimeField(auto_now_add=True)
     idUsuarioRegistro = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='logprueba_registro')
     idEstadoPrueba = models.ForeignKey(EstadoPrueba, on_delete=models.CASCADE)
     idPrueba = models.ForeignKey(Prueba, on_delete=models.CASCADE)

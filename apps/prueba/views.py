@@ -36,6 +36,17 @@ class PruebaViewSet(viewsets.ModelViewSet):
 class CriterioAceptacionViewSet(viewsets.ModelViewSet):
     queryset = CriterioAceptacion.objects.all()
     serializer_class = CriterioAceptacionSerializer
+    
+    def create(self, request, *args, **kwargs):
+        # Sobrescribimos el comportamiento para añadir el usuario responsable
+        data = request.data.copy()  # Hacemos una copia del request data
+        data['aceptado'] = 0  # Asignamos el usuario que hace la petición
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 class LogEstadoPruebaViewSet(viewsets.ModelViewSet):
     queryset = LogEstadoPrueba.objects.all()

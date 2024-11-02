@@ -22,6 +22,8 @@ class CriterioAceptacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = CriterioAceptacion
         fields = '__all__'
+        read_only_fields = ['fechaRegistro']
+
 
 class LogEstadoPruebaSerializer(serializers.ModelSerializer):
     class Meta:
