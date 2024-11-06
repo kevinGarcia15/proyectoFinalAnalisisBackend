@@ -44,6 +44,7 @@ PROJECT_APPS = [
     'apps.proyecto',
     'apps.requerimiento',
     'apps.prueba',
+    'apps.bug',
 ]
 
 # Se definen las aplicaciones de terceros

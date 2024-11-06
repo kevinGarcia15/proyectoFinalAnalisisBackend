@@ -47,6 +47,15 @@ class CriterioAceptacionViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        idPrueba = self.request.query_params.get('idprueba')
+
+        # Si se proporciona un id de proyecto, filtramos por él
+        if idPrueba:
+            queryset = queryset.filter(idPrueba=idPrueba)
+        return queryset
 
 class LogEstadoPruebaViewSet(viewsets.ModelViewSet):
     queryset = LogEstadoPrueba.objects.all()

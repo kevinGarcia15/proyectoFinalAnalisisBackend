@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/v1/', include('apps.requerimiento.urls')),
     path('api/v1/', include('apps.prueba.urls')),
     path('api/v1/', include('apps.user.urls')),
+    path('api/v1/', include('apps.bug.urls')),
 ]
 

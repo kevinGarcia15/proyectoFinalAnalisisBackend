@@ -59,6 +59,19 @@ INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estad
 INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estadoPrueba`) VALUES ('2', 'Cumplido');
 INSERT INTO `db_controlProyecto`.`prueba_estadoprueba` (`idEstadoPrueba`, `estadoPrueba`) VALUES ('3', 'Finalizado');
 
+INSERT INTO db_controlProyecto.bug_clasificacion (clasificacion)
+VALUES
+  ('error'),
+  ('mejora'),
+  ('tarea');
+  
+UPDATE `db_controlProyecto`.`bug_clasificacion` SET `clasificacion` = 'Error' WHERE (`idClasificacion` = '1');
+UPDATE `db_controlProyecto`.`bug_clasificacion` SET `clasificacion` = 'Mejora' WHERE (`idClasificacion` = '2');
+UPDATE `db_controlProyecto`.`bug_clasificacion` SET `clasificacion` = 'Tarea' WHERE (`idClasificacion` = '3');
+
+INSERT INTO `db_controlProyecto`.`bug_estadobug` (`idEstadoBug`, `estadoBug`) VALUES ('1', 'Abierto');
+INSERT INTO `db_controlProyecto`.`bug_estadobug` (`idEstadoBug`, `estadoBug`) VALUES ('2', 'En progreso');
+INSERT INTO `db_controlProyecto`.`bug_estadobug` (`idEstadoBug`, `estadoBug`) VALUES ('3', 'Cerrado');
 
 ####################################################################
 #				TRIGGERS			   #
