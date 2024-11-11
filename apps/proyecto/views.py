@@ -3,6 +3,8 @@ from rest_framework import viewsets, permissions, status
 from django.shortcuts import render
 from django.db import transaction
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import action
+from django.db import connection
 
 """ SERIALIZERS """
 from .serializers import  ProyectoSerializer, PrioridadSerializer, ComplejidadSerializer, TipoRequerimientoSerializer, EstadoProyectoSerializer
@@ -83,3 +85,42 @@ class EstadoProyectoViewSet(viewsets.ModelViewSet):
         """" Define permisos para este recurso """
         permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+    
+class ReporteViewSet(viewsets.ViewSet):
+    # Reporte de estado de bugs por proyecto
+    @action(detail=False, methods=['get'], url_path='reportesbug')
+    def reporte_bugs(self, request):
+        query = """
+            SELECT idProyecto, nombreProyecto,
+                   COUNT(IF(b.idEstadoBug_id = 1, b.idBug, NULL)) AS abierto,
+                   COUNT(IF(b.idEstadoBug_id = 2, b.idBug, NULL)) AS progreso,
+                   COUNT(IF(b.idEstadoBug_id = 3, b.idBug, NULL)) AS cerrado,
+                   ROUND(AVG(TIMESTAMPDIFF(MINUTE, b.fechaRegistro, b.fechaResolucion) / 60)) AS promResolucionHora
+            FROM proyecto_proyecto pr
+            JOIN prueba_prueba AS p ON pr.idProyecto = p.idProyecto_id
+            JOIN bug_bug AS b ON p.idPrueba = b.idPrueba_id
+            GROUP BY idProyecto;
+        """
+        with connection.cursor() as cursor:
+            cursor.execute(query)
+            results = cursor.fetchall()
+
+        data = [
+            {
+                'idProyecto': row[0],
+                'nombreProyecto': row[1],
+                'abierto': row[2],
+                'progreso': row[3],
+                'cerrado': row[4],
+                'promResolucionHora': row[5]
+            }
+            for row in results
+        ]
+        return Response(data)
+
+    # Otro reporte (ejemplo)
+#    @action(detail=False, methods=['get'], url_path='reporte-otro')
+ #   def reporte_otro(self, request):
+        # Define aquí otra consulta o lógica para otro reporte
+        # ...
+ #       return Response({'mensaje': 'Este es otro reporte'})
