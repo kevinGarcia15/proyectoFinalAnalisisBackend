@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', default='secret!')
 
-ALLOWED_HOSTS = ["0.0.0.0","localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["0.0.0.0","localhost", "127.0.0.1", "209.38.134.15"]
 
 DJANGO_APPS = [
     'django.contrib.admin',
