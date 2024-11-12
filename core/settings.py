@@ -118,6 +118,7 @@ DATABASES = {
     
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
+    'https://umgcontrolproyecto.web.app',
     'http://127.0.0.1:8000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
@@ -137,6 +138,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
+    'https://umgcontrolproyecto.web.app'
 ]
 
 PASSWORD_HASHERS = [
@@ -152,6 +154,7 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
+    'https://umgcontrolproyecto.web.app'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -159,6 +162,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
+    'https://umgcontrolproyecto.web.app'
 ]
 
 PASSWORD_HASHERS = [
