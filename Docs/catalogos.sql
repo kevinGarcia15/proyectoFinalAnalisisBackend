@@ -88,16 +88,51 @@ BEGIN
 END$$
 
 
-DROP TRIGGER IF EXISTS `db_controlProyecto`.`prueba_prueba_AFTER_UPDATE`;
+DROP TRIGGER IF EXISTS `db_controlProyecto`.`prueba_prueba_AFTER_UPDATE`$$
 
 DELIMITER $$
 USE `db_controlProyecto`$$
 CREATE DEFINER = CURRENT_USER TRIGGER `db_controlProyecto`.`prueba_prueba_AFTER_UPDATE` AFTER UPDATE ON `prueba_prueba` FOR EACH ROW
 BEGIN
 	IF NEW.idEstadoPrueba_id <> OLD.idEstadoPrueba_id THEN
-		INSERT INTO prueba_logestadoprueba(idEstadoPrueba_id, idPrueba_id, idUsuarioRegistro_id)
-        VALUES(OLD.idEstadoPrueba_id, OLD.idPrueba, OLD.idUsuarioRegistro_id);
+    INSERT INTO prueba_logestadoprueba(idEstadoPrueba_id, idPrueba_id, idUsuarioRegistro_id, fechaRegistro)
+    VALUES(OLD.idEstadoPrueba_id, OLD.idPrueba, OLD.idUsuarioRegistro_id, NOW());
     END IF;
 END$$
 DELIMITER ;
 
+USE db_controlProyecto;
+DELIMITER $$
+DROP TRIGGER IF EXISTS bug_AFTER_UPDATE$$
+CREATE DEFINER = CURRENT_USER TRIGGER `db_controlProyecto`.`bug_AFTER_UPDATE` AFTER UPDATE ON `bug_bug` FOR EACH ROW
+BEGIN
+    DECLARE countCritPend, countBugPend INT DEFAULT 0;
+
+	IF NEW.idEstadoBug_id <> OLD.idEstadoBug_id THEN
+		SELECT COUNT(*) AS conteo INTO countCritPend fROM prueba_criterioaceptacion WHERE idPrueba_id = OLD.idPrueba_id AND aceptado = 0;
+		SELECT COUNT(*) AS conteo INTO countBugPend fROM bug_bug WHERE idPrueba_id = OLD.idPrueba_id AND idEstadoBug_id IN(1,2);
+
+		UPDATE prueba_prueba
+		SET idEstadoPrueba_id = IF(countCritPend = 0 AND countBugPend = 0, 3, 1) 
+		WHERE idPrueba = OLD.idPrueba_id;
+
+    END IF;
+END$$
+DELIMITER ;
+DELIMITER $$
+DROP TRIGGER IF EXISTS criterioAceptacion_AFTER_UPDATE$$
+CREATE DEFINER = CURRENT_USER TRIGGER `db_controlProyecto`.`criterioAceptacion_AFTER_UPDATE` AFTER UPDATE ON `prueba_criterioaceptacion` FOR EACH ROW
+BEGIN
+    DECLARE countCritPend, countBugPend INT DEFAULT 0;
+
+	IF NEW.aceptado <> OLD.aceptado THEN
+		SELECT COUNT(*) AS conteo INTO countCritPend fROM prueba_criterioaceptacion WHERE idPrueba_id = OLD.idPrueba_id AND aceptado = 0;
+		SELECT COUNT(*) AS conteo INTO countBugPend fROM bug_bug WHERE idPrueba_id = OLD.idPrueba_id AND idEstadoBug_id = 1;
+
+		UPDATE prueba_prueba
+		SET idEstadoPrueba_id = IF(countCritPend = 0 AND countBugPend = 0, 3, 1) 
+		WHERE idPrueba = OLD.idPrueba_id;
+        
+    END IF;
+END$$
+DELIMITER ;

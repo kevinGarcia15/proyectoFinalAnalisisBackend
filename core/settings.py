@@ -122,7 +122,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
-    "https://payroll-front.onrender.com",
+    'https://apiumgproyect.zapto.org',
 ]
 
 # CORS_ORIGIN_WHITELIST = [
@@ -138,7 +138,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
-    'https://umgcontrolproyecto.web.app'
+    'https://umgcontrolproyecto.web.app',
+    'https://apiumgproyect.zapto.org',
 ]
 
 PASSWORD_HASHERS = [
@@ -154,7 +155,8 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
-    'https://umgcontrolproyecto.web.app'
+    'https://umgcontrolproyecto.web.app',
+    'https://apiumgproyect.zapto.org',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -162,7 +164,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5173',
-    'https://umgcontrolproyecto.web.app'
+    'https://umgcontrolproyecto.web.app',
+    'https://apiumgproyect.zapto.org',
 ]
 
 PASSWORD_HASHERS = [
