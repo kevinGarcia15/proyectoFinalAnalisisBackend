@@ -18,7 +18,7 @@ class BugViewSet(viewsets.ModelViewSet):
     serializer_class = BugSerializer
 
     def get_permissions(self):
-        """" Define permisos para este recurso """
+        """ Define permisos para este recurso """
         permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
@@ -37,20 +37,28 @@ class BugViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         idPrueba = self.request.query_params.get('idprueba')
 
-        # Si se proporciona un id de proyecto, filtramos por él
+        # Si se proporciona un id de prueba, filtramos por él
         if idPrueba:
             queryset = queryset.filter(idPrueba=idPrueba)
         return queryset
-    
+
     def update(self, request, *args, **kwargs):
-        getBug = self.get_object()
-    
+        bug = self.get_object()
+
+        # Verificar si el usuario autenticado es el responsable del bug
+        if bug.idUsuarioEncargado != request.user:
+            return Response(
+                {"detail": "No tienes permiso para cambiar el estado de este bug."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        # Actualizar la fecha de resolución si el estado es 3
         if request.data.get('idEstadoBug') == 3:
-            getBug.fechaResolucion = now()
+            bug.fechaResolucion = now()
         else:
-            getBug.fechaResolucion = None
-    
-        serializer = self.get_serializer(getBug, data=request.data, partial=True)
+            bug.fechaResolucion = None
+
+        serializer = self.get_serializer(bug, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         

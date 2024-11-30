@@ -24,7 +24,7 @@ class RequerimientoViewSet(viewsets.ModelViewSet):
         return queryset
     
     def get_permissions(self):
-        """" Define permisos para este recurso """
+        """ Define permisos para este recurso """
         permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
 
@@ -40,3 +40,17 @@ class RequerimientoViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def update(self, request, *args, **kwargs):
+        # Recuperar el objeto actual
+        instance = self.get_object()
+
+        # Verificar si el usuario autenticado es el responsable del requerimiento
+        if instance.idUsuarioEncargado != request.user:
+            return Response(
+                {"detail": "No tienes permiso para cambiar el estado de este requerimiento."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        # Permitir la actualización si es el responsable
+        return super().update(request, *args, **kwargs)
